@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>星钻签到</title>
 	<style>
 		* {
@@ -75,63 +77,67 @@
 </head>
 
 <body>
-<div id="app">
-	<div class="list-container">
-		<div class="item-container" v-for="(item, index) in list">
-			<span>{{ item.name }}</span>
-			<a :href="item.link" :class="{'active': item.isOpen}" class="link" @click="handleClick(index)">{{ item.isOpen ? '已点击' : '立即前往' }}</a>
+	<div id="app">
+		<div class="list-container">
+			<div class="item-container" v-for="(item, index) in list">
+				<span>{{ item.name }}</span>
+				<a :href="item.link" :class="{'active': item.isOpen}" class="link" @click="handleClick(index)">{{ item.isOpen ?
+					'已点击' : '立即前往' }}</a>
+			</div>
 		</div>
 	</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-<script>
-	const temp = [
-		{isOpen: false, name: '三星浏览器', link: 'http://d6m.cn/4syOd'},
-		{isOpen: false, name: '应用商店', link: 'http://d6m.cn/p4iI4'},
-		{isOpen: false, name: '购物', link: 'http://d6m.cn/95ZSS'},
-		{isOpen: false, name: '健康', link: 'http://d6m.cn/Ac9Fb'},
-		{isOpen: false, name: '主题商店', link: 'http://d6m.cn/W2V5y'},
-		{isOpen: false, name: '网上商城', link: 'http://d6m.cn/h4fae'},
-		{isOpen: false, name: '畅联', link: 'http://d6m.cn/rR52b'},
-		{isOpen: false, name: '生活助手', link: 'http://d6m.cn/RKlok'},
-	]
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+	<script>
+		const temp = [
+			{ isOpen: false, name: '三星浏览器', link: 'http://d6m.cn/4syOd' },
+			{ isOpen: false, name: '购物', link: 'http://d6m.cn/95ZSS' },
+			{ isOpen: false, name: '网上商城', link: 'http://d6m.cn/h4fae' },
+			{ isOpen: false, name: '畅联', link: 'http://d6m.cn/rR52b' },
+			{ isOpen: false, name: '三星星钻签到', link: 'https://s3.cn-north-1.amazonaws.com.cn/seb.samsungassistant.com/deeplink/d.html?sadeeplink=sassistant:///#Intent;action=android.intent.action.VIEW;component=com.samsung.android.app.sreminder/.phone.lifeservice.LifeServiceActivity;S.uri=https%3A%2F%2Fsrewards.samsung.com.cn%2Fpublic%2Frewardsactivitiesprd%2Ftemplate_sign_activity%2Ffrprd%2Findex.html%3Fid%3D20;S.id=seb;S.extra_title_string=%E6%98%9F%E9%92%BB%E5%8A%A9%E6%89%8B;S.cpname=;S.minVersion=0;S.sebServiceId=;S.cleanTop=false;end' },
+			{ isOpen: false, name: '商城签到', link: 'https://s3.cn-north-1.amazonaws.com.cn/seb.samsungassistant.com/deeplink/d.html?sadeeplink=sassistant:///#Intent;action=android.intent.action.VIEW;component=com.samsung.android.app.sreminder/.phone.lifeservice.LifeServiceActivity;S.uri=https%3A%2F%2Fsrewards.samsung.com.cn%2Fpublic%2Frewardsactivitiesprd%2Ftemplate_sign_activity%2Ffrprd%2Findex.html%3Fid%3D19;S.id=seb;S.extra_title_string=%E6%98%9F%E9%92%BB%E5%8A%A9%E6%89%8B;S.cpname=;S.minVersion=0;S.sebServiceId=;S.cleanTop=false;end' },
+			// {isOpen: false, name: '应用商店', link: 'http://d6m.cn/p4iI4'},
+			// {isOpen: false, name: '健康', link: 'http://d6m.cn/Ac9Fb'},
+			// {isOpen: false, name: '主题商店', link: 'http://d6m.cn/W2V5y'},
+			// {isOpen: false, name: '生活助手', link: 'http://d6m.cn/RKlok'},
+		]
 
-	let vue = new Vue({
-		el: '#app',
-		data() {
-			return {
-				list: [],
-			}
-		},
-		methods: {
-			setLocalStorage(name, value) {
-				localStorage.setItem(name, value)
+		let vue = new Vue({
+			el: '#app',
+			data() {
+				return {
+					list: [],
+				}
 			},
-			getLocalStorage(name) {
-				return localStorage.getItem(name)
+			methods: {
+				setLocalStorage(name, value) {
+					localStorage.setItem(name, value)
+				},
+				getLocalStorage(name) {
+					return localStorage.getItem(name)
+				},
+				handleClick(index) {
+					this.list[index].isOpen = true
+					this.list = [...this.list]
+					this.setLocalStorage('list', JSON.stringify(this.list))
+				}
 			},
-			handleClick(index) {
-				this.list[index].isOpen = true
-				this.list = [...this.list]
-				this.setLocalStorage('list', JSON.stringify(this.list))
-			}
-		},
-		created() {
-			let list = JSON.parse(this.getLocalStorage('list'))
-			if (list) {
-				this.list = list
-				this.setLocalStorage('list', JSON.stringify(list))
-				let findIndex = list.findIndex(item => item.isOpen === false)
-				if (findIndex === -1) {
+			created() {
+				let list = JSON.parse(this.getLocalStorage('list'))
+				if (list) {
+					this.list = list
+					this.setLocalStorage('list', JSON.stringify(list))
+					let findIndex = list.findIndex(item => item.isOpen === false)
+					if (findIndex === -1) {
+						this.setLocalStorage('list', JSON.stringify(temp))
+					}
+				} else {
+					this.list = temp
 					this.setLocalStorage('list', JSON.stringify(temp))
 				}
-			} else {
-				this.list = temp
-				this.setLocalStorage('list', JSON.stringify(temp))
 			}
-		}
-	})
-</script>
+		})
+	</script>
 </body>
+
 </html>

@@ -17,9 +17,13 @@ ul {
   color: rgb(251, 251, 254);
 }
 
+li {
+  height: 50px;
+}
+
 a {
   color: #f16b8c;
-  line-height: 32px;
+  font-size: large;
 }
 
 a:hover {

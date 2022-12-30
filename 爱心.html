@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>爱心</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			background: var(--background);
+		}
+
+		#container {
+			width: 100vw;
+			height: 100vh;
+		}
+
+		:root {
+			--width: 200px;
+			--height: 200px;
+			--half-radius: -100px;
+			--background: #FFC0CBFF;
+			--heartBg: #ffffff;
+		}
+
+		.heart {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			width: var(--width);
+			height: var(--height);
+			background-color: var(--heartBg);
+			border-radius: 3px;
+
+			animation: loop 2s infinite cubic-bezier(.52, .2, .48, .94);
+
+			filter: drop-shadow(0px 3px 10px rgba(0, 0, 0, 0.1));
+		}
+
+		.heart::before {
+			content: "";
+			position: absolute;
+			width: var(--width);
+			height: var(--height);
+			border-radius: 50%;
+			background-color: var(--heartBg);
+			left: var(--half-radius);
+		}
+
+		.heart::after {
+			content: "";
+			position: absolute;
+			width: var(--height);
+			height: var(--width);
+			border-radius: 50%;
+			background-color: var(--heartBg);
+			top: var(--half-radius);
+		}
+
+		@keyframes loop {
+			0%, 100% {
+				transform: rotate(45deg) scale(0.9);
+			}
+
+			50% {
+				transform: rotate(45deg) scale(1.1);
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div class="heart"></div>
+	</div>
+
+	<script>
+		document.getElementById('container').addEventListener('click', function (e) {
+
+		})
+
+		function clickHeart() {
+
+		}
+	</script>
+</body>
+</html>
